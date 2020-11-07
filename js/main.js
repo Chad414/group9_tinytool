@@ -79,7 +79,6 @@ $(".calculate").click(function(){
 
     let pm = document.getElementById("person-months").value;
     let salary = document.getElementById("salary").value;
-    let x = 5; 
 
     // Check if inputs are empty here
 
