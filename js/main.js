@@ -1,5 +1,4 @@
 const $tableID = $('#table');
-const $EXPORT = $('#export');
 
 const newTr = `
 <tr class="hide">
@@ -42,7 +41,7 @@ $(".calculate").click(function(){
     const headers = [];
     const data = [];
 
-    // Get the headers (add special header logic here)
+    // Get the headers
     $($rows.shift()).find('th:not(:empty)').each(function () {
         let header = $(this).text().toLowerCase();
 
@@ -53,14 +52,12 @@ $(".calculate").click(function(){
         headers.push(header);
     });
 
-    // Turn all existing rows into a loopable array
     $rows.each(function () {
         const $td = $(this).find('td');
         const h = {};
 
         // Use the headers from earlier to name our hash keys
         headers.forEach((header, i) => {
-
             h[header] = $td.eq(i).text();
         });
 
@@ -99,4 +96,37 @@ $(".calculate").click(function(){
     document.getElementById("result2").innerText = "$" + costLOC.toString();
     document.getElementById("result3").innerText = "$" + totalCost.toString();
     document.getElementById("result4").innerText = productivity.toString() + " LOC/pm";
+});
+
+$(".export").click(function(){
+    const $rows = $tableID.find('tr:not(:hidden)');
+    const headers = [];
+    const data = [];
+
+    // Get the headers
+    $($rows.shift()).find('th:not(:empty)').each(function () {
+        headers.push($(this).text().toLowerCase());
+    });
+
+    $rows.each(function () {
+        const $td = $(this).find('td');
+        const h = {};
+
+        // Use the headers from earlier to name our hash keys
+        headers.forEach((header, i) => {
+
+            h[header] = $td.eq(i).text();
+        });
+
+        data.push(h);
+    });
+
+    $('#exportModal').modal();
+
+    // Output the result
+    document.getElementById("export").textContent = JSON.stringify(data, undefined, 2);
+});
+
+$(".info").click(function(){
+    $('#infoModal').modal();
 });
