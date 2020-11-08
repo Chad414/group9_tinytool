@@ -81,6 +81,15 @@ $(".calculate").click(function(){
     let salary = document.getElementById("salary").value;
 
     // Check if inputs are empty here
+    if (pm === "" || salary === "") {
+        console.log("Input is Empty");
+        $('#inputModal').modal();
+        return;
+    } else if (isNaN(pm) || isNaN(salary)) {
+        console.log("Input is of improper type");
+        $('#inputModal').modal();
+        return;
+    }
 
     let productivity = totalLOC / pm;
     let costLOC = (salary / productivity).toFixed(2);
