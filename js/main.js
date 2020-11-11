@@ -46,6 +46,7 @@ $(".calculate").click(function(){
         let header = $(this).text().toLowerCase();
 
         if (header === "estimated lines of code") {
+
             header = "loc";
         }
 
@@ -68,7 +69,12 @@ $(".calculate").click(function(){
 
     for (let i = 0; i < data.length; i++) {
         let n = parseInt(data[i].loc);
-        if (!Number.isInteger(n)) {
+
+        if (n <= 0) {
+            console.log("Lines of code estimate is less than or equal to zero.");
+            $('#badLOCEstimateModal').modal();
+            return;
+        } else if (!Number.isInteger(n)) {
             n = 0;
         }
         totalLOC += n;
@@ -77,7 +83,7 @@ $(".calculate").click(function(){
     let pm = document.getElementById("person-months").value;
     let salary = document.getElementById("salary").value;
 
-    // Check if inputs are empty here
+    // Check if inputs are empty/improper here
     if (pm === "" || salary === "") {
         console.log("Input is Empty");
         $('#inputModal').modal();
@@ -86,9 +92,13 @@ $(".calculate").click(function(){
         console.log("Input is of improper type");
         $('#inputModal').modal();
         return;
+    } else if (pm <= 0 || salary <= 0) {
+        console.log("Input is less than or equal to zero");
+        $('#zeroOrLessModal').modal();
+        return;
     }
 
-    let productivity = totalLOC / pm;
+    let productivity = (totalLOC / pm).toFixed(2);
     let costLOC = (salary / productivity).toFixed(2);
     let totalCost = (salary * pm).toFixed(2);
 
