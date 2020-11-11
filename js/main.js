@@ -9,7 +9,6 @@ const newTr = `
   </td>
 </tr>`;
 
-//$('.table-add').on('click', 'i', () => {
 $(".add").click(function(){
 
     console.log("Adding new row");
@@ -46,7 +45,6 @@ $(".calculate").click(function(){
         let header = $(this).text().toLowerCase();
 
         if (header === "estimated lines of code") {
-
             header = "loc";
         }
 
