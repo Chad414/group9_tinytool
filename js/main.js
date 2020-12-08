@@ -100,6 +100,11 @@ $(".calculate").click(function(){
     let costLOC = (salary / productivity).toFixed(2);
     let totalCost = (salary * pm).toFixed(2);
 
+    // Check if Total LOC is 0
+    if (totalLOC === 0) {
+        costLOC = 0.00.toFixed(2);
+    }
+
     document.getElementById("result1").innerText = totalLOC.toString();
     document.getElementById("result2").innerText = "$" + costLOC.toString();
     document.getElementById("result3").innerText = "$" + totalCost.toString();
