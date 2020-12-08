@@ -134,7 +134,3 @@ $(".export").click(function(){
     // Output the result
     document.getElementById("export").textContent = JSON.stringify(data, undefined, 2);
 });
-
-$(".info").click(function(){
-    $('#infoModal').modal();
-});
